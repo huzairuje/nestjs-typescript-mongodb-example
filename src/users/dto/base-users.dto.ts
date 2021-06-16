@@ -1,5 +1,14 @@
+import { IsNumber, IsNotEmpty } from 'class-validator';
+
 export class BaseUsersDto {
-    name: string
-    description?: string;
-    age: number;
+  
+  @IsNotEmpty()
+  name: string
+
+  @IsNotEmpty()
+  description?: string;
+    
+  @IsNotEmpty()
+  @IsNumber()
+  age: number;
   }

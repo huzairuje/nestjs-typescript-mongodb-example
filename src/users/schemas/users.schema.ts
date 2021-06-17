@@ -1,10 +1,13 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { Exclude } from 'class-transformer';
 import { Document } from 'mongoose';
 
 export type UsersDocument = Users & Document;
 
 @Schema()
 export class Users {
+  public id?: number;
+
   @Prop({ required: true })
   name: string;
 
@@ -18,9 +21,11 @@ export class Users {
   completedAt?: Date;
 
   @Prop()
+  @Exclude()
   createdAt: Date;
 
   @Prop()
+  @Exclude()
   deletedAt?: Date;
 }
 

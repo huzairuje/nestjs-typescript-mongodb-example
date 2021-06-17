@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common';
+import { Controller, HttpException, HttpStatus } from '@nestjs/common';
 import { UsersService } from './users.service';
 import {Body,Delete,Get,Param,Post,Put,} from '@nestjs/common';
 import { CreateUsersDto } from './dto/create-users.dto';
@@ -15,7 +15,11 @@ export class UsersController {
 
   @Get(':id')
   async find(@Param('id') id: string) {
-    return await this.service.findOne(id);
+    const data = this.service.findOne(id);
+    if ((await data) === null) {
+      throw new HttpException('user not found', HttpStatus.NOT_FOUND);
+    }
+    return await data;
   }
 
   @Post('')
@@ -26,11 +30,19 @@ export class UsersController {
 
   @Put(':id')
   async update(@Param('id') id: string, @Body() updateUsersDto: UpdateUsersDto) {
+    const data = this.service.findOne(id);
+    if ((await data) === null) {
+      throw new HttpException('user not found', HttpStatus.NOT_FOUND);
+    }
     return await this.service.update(id, updateUsersDto);
   }
 
   @Delete(':id')
   async delete(@Param('id') id: string) {
+    const data = this.service.findOne(id);
+    if ((await data) === null) {
+      throw new HttpException('user not found', HttpStatus.NOT_FOUND);
+    }
     return await this.service.delete(id);
   }
 

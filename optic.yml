@@ -1,4 +1,4 @@
-name: "go echo example API"
+name: "nestjs mongodb example API"
 # Start your api with Optic by running 'api run <taskname>'
 tasks:
   start:
